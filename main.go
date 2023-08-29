@@ -33,15 +33,15 @@ type args struct {
 	Username        string          `arg:"required,env:MAILBOX_ORG_USERNAME" help:"mailbox.org username"`
 	Password        string          `arg:"env:MAILBOX_ORG_PASSWORD" help:"mailbox.org password"`
 	PasswordOnStdin bool            `arg:"--password-on-stdin" help:"read password from stdin"`
-	List            *ListCommand    `arg:"subcommand:list" help:"list dispossable addresses"`
-	Renew           *RenewCommand   `arg:"subcommand:renew" help:"renew dispossable address"`
-	Delete          *DeleteCommand  `arg:"subcommand:delete" help:"delete dispossable address"`
-	SetMemo         *SetMemoCommand `arg:"subcommand:set-memo" help:"set-memo on existing dispossable address"`
-	Create          *CreateCommand  `arg:"subcommand:create" help:"create new dispossable address with optional memo"`
+	List            *ListCommand    `arg:"subcommand:list" help:"list disposable addresses"`
+	Renew           *RenewCommand   `arg:"subcommand:renew" help:"renew disposable address"`
+	Delete          *DeleteCommand  `arg:"subcommand:delete" help:"delete disposable address"`
+	SetMemo         *SetMemoCommand `arg:"subcommand:set-memo" help:"set-memo on existing disposable address"`
+	Create          *CreateCommand  `arg:"subcommand:create" help:"create new disposable address with optional memo"`
 }
 
 func (args) Description() string {
-	return "Command line \"client\" for mailbox.org dispossable addresses feature"
+	return "Command line \"client\" for mailbox.org disposable addresses feature"
 }
 
 func (args) Version() string {
