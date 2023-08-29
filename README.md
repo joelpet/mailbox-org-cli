@@ -1,10 +1,4 @@
-# IMPORTANT
-
-This project is archived, as I don't use Mailbox.org anymore and therefore I cannot test any potential changes. Feel free to fork it or use one of the [existing forks](https://github.com/singles/mailbox-org-cli/forks) instead.
-
----
-
-# mailbox-org-cli
+# joelpet/mailbox-org-cli
 
 **Unoffical** command line "client" for managing [mailbox.org](https://mailbox.org) [disposable addresses](https://mailbox.org/en/post/more-privacy-with-anonymous-disposable-e-mail-addresses).
 
@@ -14,11 +8,9 @@ What it does it pretends to be browser and interacts with management panel in go
 
 ## Installation
 
-You can download prebuilt binary from [Releases](https://github.com/singles/mailbox-org-cli/releases) page, but at the moment macOS binary **isn't** signed & notarized so you will get a warning that application cannot be verified.
-
 If you have Go installed, you can either:
 
-* install it from source `go install github.com/singles/mailbox-org-cli@latest`
+* install it from source `go install github.com/joelpet/mailbox-org-cli@latest`
 * clone repository and build it by yourself: `go build .` (requires Go 1.17)
 
 ## Usage
@@ -62,10 +54,10 @@ $ pass Email/mailbox.org | mailbox-org-cli --username you@example.com --password
 ]
 ```
 
-All output is JSON, so you will probably need something like [`jq`](https://github.com/stedolan/jq) to extract specific data. Using example output above this command will copy first item's email into clipboard (`pbcopy` on macOS):
+All output is JSON, so you will probably need something like [`jq`](https://github.com/stedolan/jq) to extract specific data. Using example output above this command will copy first item's email into clipboard (`wl-copy` on Wayland):
 
 ```text
-mailbox-org-cli ... list | jq --raw '.[0].email' | pbcopy
+mailbox-org-cli ... list | jq --raw '.[0].email' | wl-copy
 ```
 
 ### Possible use cases
@@ -78,17 +70,15 @@ mailbox-org-cli ... list | jq --raw '.[0].email' | pbcopy
 
 1. Why it's in Go instead of JS/Python/PHP/other-scripting-language ?
 
-First version was based on JS, but then I realized that I wanted single binary which can be run on `scratch`, without any JS, Python, PHP, Ruby, etc interpreter installed.
-
-Technically - this could be written as a Bash script containing some `curl`s and HTML parsing, but see above :)
+The original author based the first version on JS, but then they realized that they wanted single binary which can be run on `scratch`, without any JS, Python, PHP, Ruby, etc interpreter installed.
 
 2. Why there are no tests?
 
-Because of how `surf` works, it's hard to "feed" it with stubbed HTML content. Other solutions include using some [HTTP mocking library](https://github.com/h2non/gock) or setting up some [local mock server](https://mockoon.com/). Also, this isn't a tool which gets 23 releases per month, so I'm "testing" it manually.
+Because of how `surf` works, it's hard to "feed" it with stubbed HTML content. Other solutions include using some [HTTP mocking library](https://github.com/h2non/gock) or setuping some [local mock server](https://mockoon.com/). Manual testing will suffice for now.
 
 3. Why does it use `username`/`password` instead of token?
 
-Because I didn't find a way to generate application token in Mailbox.org interface. Official [API](https://api.mailbox.org/v1/doc/welcome/Grundlegende-Informationen.html) also requires username/password and gives you token which is valid only for 20 minutes.
+Becasue the original author didn't find a way to generate application token in Mailbox.org interface. Official [API](https://api.mailbox.org/v1/doc/welcome/Grundlegende-Informationen.html) also requires username/password and gives you token which is valid only for 20 minutes.
 
 One could probably use `PHPSESSID` but extracting this requires you either to dig into browser's Dev Tools or CLI tool should store it somewhere after first login.
 

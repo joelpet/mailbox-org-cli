@@ -1,4 +1,4 @@
-module github.com/singles/mailbox-org-cli
+module github.com/joelpet/mailbox-org-cli
 
 go 1.17
 
